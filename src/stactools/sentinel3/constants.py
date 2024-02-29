@@ -780,6 +780,16 @@ SRAL_L2_LAN_WAT_KEYS = [
     "enhancedMeasurementData",
     "reducedMeasurementData",
 ]
+SRAL_L2_LAN_KEYS = [
+    "standardMeasurementData",
+    "enhancedMeasurementData",
+]
+
+SRAL_L2_LAN_APP_DOMAINS = [
+    "LAN_HY",
+    "LAN_SI",
+    "LAN_LI",
+]
 
 SYNERGY_L2_A550_T550_BANDS = [
     "S01",

@@ -1,7 +1,9 @@
 import os
 from hashlib import md5
+from typing import Union
 
 from pystac.extensions.eo import EOExtension
+from pystac.extensions.file import FileExtension
 from pystac.extensions.sat import OrbitState, SatExtension
 from stactools.core.io.xml import XmlElement
 
@@ -128,7 +130,9 @@ def fill_file_properties(
 
 
 def fill_manifest_file_properties(
-    manifest_href: str, manifest_text: str, file_ext: FileExtensionUpdated
+    manifest_href: str,
+    manifest_text: str,
+    file_ext: Union[FileExtensionUpdated, FileExtension],
 ) -> None:
     manifest_text_encoded = manifest_text.encode(encoding="UTF-8")
     file_ext.checksum = md5(manifest_text_encoded).hexdigest()

@@ -114,12 +114,14 @@ class MetadataLinks:
         product_type = xml.find_text(manifest, ".//sentinel3:productType")
         product_type_category = product_type.split("_")[0]
 
+        application_domain = None
         if product_type_category == "OL":
             instrument_bands = constants.SENTINEL_OLCI_BANDS
         elif product_type_category == "SL":
             instrument_bands = constants.SENTINEL_SLSTR_BANDS
         elif product_type_category == "SR":
             instrument_bands = constants.SENTINEL_SRAL_BANDS
+            application_domain = product_type[-6:]
         elif product_type_category == "SY":
             instrument_bands = constants.SENTINEL_SYNERGY_BANDS
         else:
@@ -129,7 +131,13 @@ class MetadataLinks:
 
         asset_key_list = None
         if instrument_bands == constants.SENTINEL_SRAL_BANDS:
-            asset_key_list = constants.SRAL_L2_LAN_WAT_KEYS
+            if (
+                application_domain
+                and application_domain in constants.SRAL_L2_LAN_APP_DOMAINS
+            ):
+                asset_key_list = constants.SRAL_L2_LAN_KEYS
+            else:
+                asset_key_list = constants.SRAL_L2_LAN_WAT_KEYS
             for asset_key in asset_key_list:
                 band_dict_list = []
                 for band in instrument_bands:
